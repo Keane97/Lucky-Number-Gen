@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,6 +34,13 @@ public class LuckyNumberActivity extends AppCompatActivity {
 
         luckyNumberTxt.setText("" + random);
 
+        share_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                shareData(userName, random);
+            }
+        });
+
     }
 
     public int generateRandomNum() {
@@ -40,5 +48,16 @@ public class LuckyNumberActivity extends AppCompatActivity {
         int upper = 1000;
         int randomNumberGenerated = random.nextInt(upper);
         return randomNumberGenerated;
+    }
+
+    public void shareData(String username, int random){
+        //implicit Intents
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+
+        intent.putExtra(Intent.EXTRA_SUBJECT, username);
+        intent.putExtra(Intent.EXTRA_TEXT, random);
+
+        startActivity(Intent.createChooser(intent, "Choose a platform"));
     }
 }
