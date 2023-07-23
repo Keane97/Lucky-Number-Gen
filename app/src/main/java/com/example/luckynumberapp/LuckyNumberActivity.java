@@ -55,8 +55,11 @@ public class LuckyNumberActivity extends AppCompatActivity {
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/plain");
 
-        intent.putExtra(Intent.EXTRA_SUBJECT, username);
-        intent.putExtra(Intent.EXTRA_TEXT, random);
+        // Convert random number Int to string
+        String number = String.valueOf(random);
+
+        intent.putExtra(Intent.EXTRA_SUBJECT, username + " got lucky today");
+        intent.putExtra(Intent.EXTRA_TEXT,"his lucky number is " + number);
 
         startActivity(Intent.createChooser(intent, "Choose a platform"));
     }
